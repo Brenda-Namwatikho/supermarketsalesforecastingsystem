@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/logo.png" rel="icon">
+  <title>SalesWave - Sales Forecasting</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="css/ruang-admin.min.css" rel="stylesheet">
+ 
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon">
+          <img src="img/logo/logo2.png">
+        </div>
+        <div class="sidebar-brand-text mx-3">SalesWave</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Features
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="reports">
+          <i class="fas fa-fw fa-palette"></i>
+          <span>Reports</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Forecasting">
+          <i class="fas fa-fw fa-palette"></i>
+          <span>Forecasting</span>
+        </a>
+      </li>
+      <div class="version" id="version-ruangadmin"></div>
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          <ul class="navbar-nav ml-auto">
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
+                <span class="ml-2 d-none d-lg-inline text-white small">Mark Tarzan</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- Topbar -->
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Forecasts</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">Pages</li>
+              <li class="breadcrumb-item active" aria-current="page">Forecasting Page</li>
+            </ol>
+          </div>
+          <div class="row">
+          <div class="col-lg-6">
+            <div class="card mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Products Forecasts</h6>
+                <select class="select2-single form-control form-control-sm w-25" name="state" id="select2Single">
+                  <option value="" selected disabled>Select Product</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Banana">Banana</option>
+                  <option value="Milk">Milk</option>
+                  <option value="Orange">Orange</option>
+                  <option value="Bread">Bread</option>
+                </select>
+                <button type="button" class="btn btn-outline-secondary mb-1 btn-sm" onclick="handleForecastClick()">Forecast</button>
+              </div>
+              <div class="card-body">
+                <div class="chart-bar">
+                  <canvas id="myBarChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                
+              <div class="card-body">
+                <div class="chart-bar">
+                  <canvas id="linechart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Logout -->
+          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                  <a id="logout-button" class="btn btn-primary">Logout</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="table-responsive p-3">
+        <table class="table align-items-center table-flush"
+            id="dataTable">
+            <thead class="thead-light">
+                <tr>
+
+                    <th>MONTH</th>
+                    <th>Quantity</th>
+                    
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+
+                    <th> MONTH</th>
+                    <th>Quantity</th>
+                    
+                </tr>
+            </tfoot>
+            
+              <tbody>
+               
+              </tbody>
+              
+              
+          
+
+        </table>
+       
+    </div>
+        <!---Container Fluid-->
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="text-center my-auto">
+            <span>developed by <b><a href="#" target="_blank">SalesWave</a></b></span>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
+    </div>
+  </div>
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <script src="./js/logout.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/ruang-admin.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ < <script>
+    function fetchAndPlotData() {
+      var selectedProduct = document.getElementById("select2Single").value;
+      if (selectedProduct) {
+        axios
+          .get(`http://localhost:5000/forecasts/${encodeURIComponent(selectedProduct)}`)
+          .then(response => response.data)
+          .then(data => {
+            // Extract the monthly data from the JSON response
+            const monthlyData = data.monthly;
+            
+            // Prepare the labels and values for the chart
+            const labels = monthlyData.map(item => item.Date);
+            const values = monthlyData.map(item => item.Prediction);
+    
+            // Fetch the total quantity from the new endpoint
+            axios
+              .get(`http://localhost:5000/report/${encodeURIComponent(selectedProduct)}`)
+              .then(response => response.data.totalQuantity)
+              .then(totalQuantity => {
+                // Add the total quantity value to the line graph values
+                values.push(totalQuantity);
+    
+                // Plot the bar graph using Chart.js
+                plotBarGraph(values, labels);
+                plotLineGraph(values, labels);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } else {
+        alert("Please select a product.");
+      }
+    }
+    
+      function plotBarGraph(values, labels) {
+        var ctx = document.getElementById('myBarChart').getContext('2d');
+      
+        // Check if a Chart instance already exists
+        if (Chart.instances.length > 0) {
+          // Destroy the existing Chart instance
+          Chart.instances[0].destroy();
+        }
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Product Forecast',
+              data: values,
+              backgroundColor: 'rgba(0, 123, 255, 0.5)',
+              borderColor: 'rgba(0, 123, 255, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+      
+      function plotLineGraph(values, labels) {
+        var ctx = document.getElementById('linechart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Product Forecast',
+              data: values,
+              borderColor: 'rgba(0, 123, 255, 1)',
+              backgroundColor: 'rgba(0, 123, 255, 0.1)',
+              borderWidth: 1,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Forecast'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+  </script>
+  <script>
+    function fetchAndPopulateTable() {
+      var selectedProduct = document.getElementById("select2Single").value;
+      if (selectedProduct) {
+        axios
+          .get(`http://localhost:5000/forecasts/${encodeURIComponent(selectedProduct)}`)
+          .then(response => response.data)
+          .then(data => {
+            const monthlyData = data.monthly;
+            console.log("Fetched monthly data:", monthlyData);
+    
+            const tableBody = document.querySelector("#dataTable tbody");
+            tableBody.innerHTML = "";
+    
+            monthlyData.forEach(item => {
+              const row = document.createElement("tr");
+              const labelCell = document.createElement("td");
+              const valueCell = document.createElement("td");
+    
+              labelCell.textContent = item.Date;
+              valueCell.textContent = item.Prediction;
+    
+              row.appendChild(labelCell);
+              row.appendChild(valueCell);
+              tableBody.appendChild(row);
+            });
+          })
+          .catch(error => {
+            console.log("Error fetching data:", error);
+          });
+      }
+    }
+    
+    function handleForecastClick() {
+      fetchAndPlotData();
+      fetchAndPopulateTable();
+    }
+  </script>
+</body>
+</html>
